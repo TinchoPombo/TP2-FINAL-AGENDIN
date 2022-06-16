@@ -7,7 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
+//import { MongoClient } from "../../node_modules/mongodb/mongodb";
+//const MongoClient = require('mongodb').MongoClient
+// import { default as mongodb } from '../../node_modules/mongodb/mongodb';
+// let MongoClient = mongodb.MongoClient;
 class ConectarMongodb {
     constructor() {
         this.url = 'mongodb://localhost:27017';

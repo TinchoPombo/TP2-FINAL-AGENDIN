@@ -10,18 +10,22 @@
     "dev": "nodemon --watch src/ --exec \"npm run compile\" --verbose -e ts",
     "testcompile": "tsc && node test/test.js",
     "test": "nodemon --watch src/ --exec \"npm run testcompile\" --verbose -e ts"
+    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/node": "^17.0.41",
     "nodemon": "^2.0.16",
     "typescript": "^4.7.3"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
-    "mongodb": "^4.7.0"
+    "mongodb": "^4.6.0"
   }
 }

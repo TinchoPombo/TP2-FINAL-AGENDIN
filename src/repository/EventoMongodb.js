@@ -64,3 +64,4 @@ class EventoMongodb {
     }
     ;
 }
+export { EventoMongodb };

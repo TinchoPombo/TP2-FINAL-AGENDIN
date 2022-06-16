@@ -60,3 +60,5 @@ class EventoMongodb implements Dao<Evento,number>{
      
 
 }
+
+export {EventoMongodb}
