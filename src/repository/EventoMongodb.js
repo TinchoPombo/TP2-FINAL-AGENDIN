@@ -28,7 +28,16 @@ class EventoMongodb {
             const db = yield this.conectarMongodb.conectar();
             const collection = db.collection('eventos');
             const findResult = yield collection.find({}).toArray();
-            findResult.forEach((e) => eventos.push(new Evento(e.id, e.fecha, e.descripcion, e.idUsuario, e.idTipoEvento)));
+            findResult.forEach(
+            // Element: {
+            // id: number; 
+            // fecha: Date; 
+            // descripcion: string; 
+            // idUsuario: number; 
+            // idTipoEvento: number;
+            //  }
+            e => { eventos.push(new Evento(e.id, e.fecha, e.descripcion, e.idUsuario, e.idTipoEvento)); });
+            //findResult.forEach(() => {eventos.push(new Evento())})
             yield this.conectarMongodb.desconectar();
             return Promise.resolve(eventos);
         });
