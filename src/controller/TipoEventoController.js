@@ -44,5 +44,9 @@ class TipoEventoController {
             }
         });
     }
+    getAllTipoEventos(req, res) {
+        const tipoEventoMongodb = new TipoEventoMongodb();
+        return tipoEventoMongodb.getAll();
+    }
 }
 export default new TipoEventoController();

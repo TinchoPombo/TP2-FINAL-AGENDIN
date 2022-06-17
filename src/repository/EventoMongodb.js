@@ -71,5 +71,16 @@ class EventoMongodb {
         });
     }
     ;
+    getXIdUsuario(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const eventos = [];
+            const db = yield this.conectarMongodb.conectar();
+            const collection = db.collection('eventos');
+            const findResult = yield collection.find({ idUsuario: id }).toArray();
+            findResult.forEach(e => { eventos.push(new Evento(e.id, e.fecha, e.descripcion, e.idUsuario, e.idTipoEvento)); });
+            yield this.conectarMongodb.desconectar();
+            return Promise.resolve(eventos);
+        });
+    }
 }
 export { EventoMongodb };

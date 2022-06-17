@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Email } from '../shared/Email.js';
-import { Pdf } from '../shared/Pdf.js';
+import { Pdf } from '../shared/pdf.js';
 class EventosPorUsuarioService {
     proceso() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -16,7 +16,7 @@ class EventosPorUsuarioService {
             const pdf = new Pdf();
             yield pdf.crear("Información importante", archivo);
             const email = new Email();
-            yield email.enviar("adriancaceres980@gmail.com", "Asunto", "Cuerpo mensaje", archivo);
+            yield email.enviar("tomasberias@gmail.com", "Asunto", "Cuerpo mensaje", archivo);
         });
     }
 }

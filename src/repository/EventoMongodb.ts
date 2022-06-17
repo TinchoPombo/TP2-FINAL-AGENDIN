@@ -62,7 +62,17 @@ class EventoMongodb implements Dao<Evento,number>{
             ok = true
         return Promise.resolve(ok);
     };
-     
+
+    async getXIdUsuario(id : number) : Promise<Evento[]>{
+        const eventos: Array<Evento> = [];        
+        const db = await this.conectarMongodb.conectar();
+        const collection = db.collection('eventos');
+        const findResult = await collection.find({ idUsuario: id }).toArray();        
+        findResult.forEach(e =>  {eventos.push(new Evento(e.id, e.fecha, e.descripcion, e.idUsuario, e.idTipoEvento))} );
+        await this.conectarMongodb.desconectar();
+        return Promise.resolve(eventos);
+
+    }     
 
 }
 

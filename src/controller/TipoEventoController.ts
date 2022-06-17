@@ -3,7 +3,7 @@ import {TipoEventoMongodb} from '../repository/TipoEventoMongodb.js'
 
 class TipoEventoController{
 
-    async getAll(req:express.Request, res: express.Response){
+    async getAll(req:express.Request, res: express.Response) {
         const tipoEventoMongodb : TipoEventoMongodb = new TipoEventoMongodb()
         res.status(200).send(await tipoEventoMongodb.getAll())
     }
@@ -30,6 +30,11 @@ class TipoEventoController{
         }else{
             res.status(400).send( {mensaje: "No se encontro el registro"} )
         }
+    }
+
+    getAllTipoEventos(req:express.Request, res: express.Response) {
+        const tipoEventoMongodb : TipoEventoMongodb = new TipoEventoMongodb()
+        return tipoEventoMongodb.getAll()
     }
 
 }

@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { UsuarioMongodb } from '../repository/UsuarioMongodb.js';
+import EventoController from '../controller/EventoController.js';
+import TipoEventoController from '../controller/TipoEventoController.js';
 class UsuarioController {
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +31,7 @@ class UsuarioController {
                 res.status(200).send(rta);
             }
             else {
-                res.status(404).send({ mensaje: "No se encontraron registron con esta clave" });
+                res.status(404).send({ mensaje: "No se encontraron registraron con esta clave" });
             }
         });
     }
@@ -43,6 +45,46 @@ class UsuarioController {
                 res.status(400).send({ mensaje: "No se encontro el registro" });
             }
         });
+    }
+    getEventosPorUsuario(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const usuarioMongodb = new UsuarioMongodb();
+            const rta = yield usuarioMongodb.get(parseInt(req.params.id));
+            if (rta.id != 0) {
+                const listaTipoEventos = TipoEventoController.getAllTipoEventos(req, res);
+                const listaEventos = EventoController.getEventosById(rta.id);
+                let listaFormateada = new Array();
+                (yield listaEventos).forEach((e) => __awaiter(this, void 0, void 0, function* () {
+                    var i = 0;
+                    var encontre = false;
+                    var s = "";
+                    while ((i < (yield listaTipoEventos).length) && !encontre) {
+                        if ((yield listaTipoEventos)[i].id == e.idTipoEvento) {
+                            s = (yield listaTipoEventos)[i].descripcion;
+                            encontre = true;
+                        }
+                        else {
+                            i++;
+                        }
+                    }
+                    console.log("prueba 1");
+                    console.log(e);
+                    console.log(s);
+                    var ret = this.mapEventos(e, s);
+                    console.log(ret);
+                    listaFormateada.push(ret);
+                    console.log("lista: " + listaFormateada);
+                }));
+                res.status(200).send({ mensaje: "Informacion enviada por E-mail, revise su casilla de correo electronico" + listaFormateada });
+            }
+            else {
+                res.status(404).send({ mensaje: "No se encontraron registron con esta clave" });
+            }
+        });
+    }
+    mapEventos(e, nombre) {
+        console.log("entre");
+        return '{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}';
     }
 }
 export default new UsuarioController();

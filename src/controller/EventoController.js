@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { EventoMongodb } from '../repository/EventoMongodb.js';
+// import {UsuarioController} from '../controller/UsuarioController.js'
+// import {TipoEventoController} from '../controller/TipoEventoController.js'
 class EventoController {
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -43,6 +45,11 @@ class EventoController {
                 res.status(400).send({ mensaje: "No se encontro el registro" });
             }
         });
+    }
+    getEventosById(id) {
+        const eventoMongodb = new EventoMongodb();
+        const rta = eventoMongodb.getXIdUsuario(id);
+        return rta;
     }
 }
 export default new EventoController();

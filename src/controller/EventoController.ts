@@ -35,6 +35,13 @@ class EventoController{
         }
     }
 
+    getEventosById(id : number){
+        const eventoMongodb : EventoMongodb = new EventoMongodb()
+        const rta = eventoMongodb.getXIdUsuario(id)
+        return rta
+
+    }
+    
     // async getEventosPorUsuario(req: express.Request, res: express.Response){
     //     const eventoMongodb : EventoMongodb = new EventoMongodb()
     //     const rta = await eventoMongodb.get(parseInt(req.params.id))
