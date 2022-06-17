@@ -67,24 +67,25 @@ class UsuarioController {
                             i++;
                         }
                     }
-                    console.log("prueba 1");
-                    console.log(e);
-                    console.log(s);
-                    var ret = this.mapEventos(e, s);
-                    console.log(ret);
-                    listaFormateada.push(ret);
-                    console.log("lista: " + listaFormateada);
+                    var ret = fun(e, s);
+                    console.log("ret:" + ret);
+                    console.log(listaFormateada[0] = ret);
+                    console.log(listaFormateada);
                 }));
-                res.status(200).send({ mensaje: "Informacion enviada por E-mail, revise su casilla de correo electronico" + listaFormateada });
+                console.log("lista: " + listaFormateada);
+                console.log("listaLength: " + listaFormateada.length);
+                res.status(200).send(listaFormateada[0]);
             }
             else {
                 res.status(404).send({ mensaje: "No se encontraron registron con esta clave" });
             }
+            var fun = function mapEventos(e, nombre) {
+                console.log("entre");
+                var s;
+                s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
+                return s;
+            };
         });
-    }
-    mapEventos(e, nombre) {
-        console.log("entre");
-        return '{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}';
     }
 }
 export default new UsuarioController();

@@ -62,32 +62,34 @@ class UsuarioController{
 
 
                     }
-                    console.log("prueba 1");
-                    console.log(e);
-                    console.log(s);
+                      
+                    var ret = fun(e,s)
+                    console.log("ret:" + ret);
                     
-                    var ret = this.mapEventos(e,s)
-
-                    console.log(ret);
-
-                    listaFormateada.push(ret)
-
-                    console.log("lista: " + listaFormateada);
+                    console.log(listaFormateada[0] = ret )  
+                    console.log(listaFormateada);
+                    
                     
                 })
-        
-            
-            res.status(200).send({mensaje: "Informacion enviada por E-mail, revise su casilla de correo electronico" + listaFormateada})
+                
+                console.log("lista: " + listaFormateada);
+                console.log("listaLength: " + listaFormateada.length);
+            res.status(200).send(listaFormateada[0])
         }else{
             res.status(404).send( {mensaje : "No se encontraron registron con esta clave"} )
         }
-    }
 
-    mapEventos(e : Evento, nombre : string){
-        console.log("entre");
-        
-        return '{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}'        
+
+        var fun = function mapEventos(e : Evento, nombre : string){
+            console.log("entre");
+            var s : string
+            s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}')
+            return s  
+        }
     }
+    
+
+  
 
     
 
