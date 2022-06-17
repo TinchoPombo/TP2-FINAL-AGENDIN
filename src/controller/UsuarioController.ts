@@ -1,21 +1,21 @@
 import express from 'express'
-import {EventoMongodb} from '../repository/EventoMongodb.js'
+import {UsuarioMongodb} from '../repository/UsuarioMongodb.js'
 
-class EventoController{
+class UsuarioController{
 
     async getAll(req:express.Request, res: express.Response){
-        const eventoMongodb : EventoMongodb = new EventoMongodb()
-        res.status(200).send(await eventoMongodb.getAll())
+        const usuarioMongodb : UsuarioMongodb = new UsuarioMongodb()
+        res.status(200).send(await usuarioMongodb.getAll())
     }
 
     async add(req: express.Request, res: express.Response){
-        const eventoMongodb : EventoMongodb = new EventoMongodb()
-        res.status(200).send(await eventoMongodb.add(req.body))
+        const usuarioMongodb : UsuarioMongodb = new UsuarioMongodb()
+        res.status(200).send(await usuarioMongodb.add(req.body))
     }
 
     async get(req: express.Request, res: express.Response){
-        const eventoMongodb : EventoMongodb = new EventoMongodb()
-        const rta = await eventoMongodb.get(parseInt(req.params.id))
+        const usuarioMongodb : UsuarioMongodb = new UsuarioMongodb()
+        const rta = await usuarioMongodb.get(parseInt(req.params.id))
         if(rta.id != 0){
             res.status(200).send(rta)
         }else{
@@ -24,8 +24,8 @@ class EventoController{
     }
 
     async delete(req: express.Request, res: express.Response){
-        const eventoMongodb : EventoMongodb = new EventoMongodb()
-        if(await eventoMongodb.delete(parseInt(req.params.id))){
+        const usuarioMongodb : UsuarioMongodb = new UsuarioMongodb()
+        if(await usuarioMongodb.delete(parseInt(req.params.id))){
             res.status(200).send( {mensaje: "Registro borrado correctamente"})
         }else{
             res.status(400).send( {mensaje: "No se encontro el registro"} )
@@ -34,4 +34,4 @@ class EventoController{
 
 }
 
-export default new EventoController()
+export default new UsuarioController()

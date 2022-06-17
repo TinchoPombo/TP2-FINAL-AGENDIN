@@ -7,24 +7,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { EventoMongodb } from '../repository/EventoMongodb.js';
-class EventoController {
+import { TipoEventoMongodb } from '../repository/TipoEventoMongodb.js';
+class TipoEventoController {
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const eventoMongodb = new EventoMongodb();
-            res.status(200).send(yield eventoMongodb.getAll());
+            const tipoEventoMongodb = new TipoEventoMongodb();
+            res.status(200).send(yield tipoEventoMongodb.getAll());
         });
     }
     add(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const eventoMongodb = new EventoMongodb();
-            res.status(200).send(yield eventoMongodb.add(req.body));
+            const tipoEventoMongodb = new TipoEventoMongodb();
+            res.status(200).send(yield tipoEventoMongodb.add(req.body));
         });
     }
     get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const eventoMongodb = new EventoMongodb();
-            const rta = yield eventoMongodb.get(parseInt(req.params.id));
+            const tipoeventoMongodb = new TipoEventoMongodb();
+            const rta = yield tipoeventoMongodb.get(parseInt(req.params.id));
             if (rta.id != 0) {
                 res.status(200).send(rta);
             }
@@ -35,8 +35,8 @@ class EventoController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const eventoMongodb = new EventoMongodb();
-            if (yield eventoMongodb.delete(parseInt(req.params.id))) {
+            const tipoeventoMongodb = new TipoEventoMongodb();
+            if (yield tipoeventoMongodb.delete(parseInt(req.params.id))) {
                 res.status(200).send({ mensaje: "Registro borrado correctamente" });
             }
             else {
@@ -45,4 +45,4 @@ class EventoController {
         });
     }
 }
-export default new EventoController();
+export default new TipoEventoController();
