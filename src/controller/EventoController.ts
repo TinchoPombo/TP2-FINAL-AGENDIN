@@ -1,5 +1,8 @@
 import express from 'express'
 import {EventoMongodb} from '../repository/EventoMongodb.js'
+// import {UsuarioController} from '../controller/UsuarioController.js'
+// import {TipoEventoController} from '../controller/TipoEventoController.js'
+
 
 class EventoController{
 
@@ -31,6 +34,19 @@ class EventoController{
             res.status(400).send( {mensaje: "No se encontro el registro"} )
         }
     }
+
+    // async getEventosPorUsuario(req: express.Request, res: express.Response){
+    //     const eventoMongodb : EventoMongodb = new EventoMongodb()
+    //     const rta = await eventoMongodb.get(parseInt(req.params.id))
+    //     // const rta2 = await eventoMongodb.get(parseInt(req.params.id))
+    //     // const rta3 = await eventoMongodb.get(parseInt(req.params.id))
+    //     if(rta.id != 0){
+
+    //         res.status(200).send(rta)
+    //     }else{
+    //         res.status(404).send( {mensaje : "No se encontraron registron con esta clave"} )
+    //     }
+    // }
 
 }
 
