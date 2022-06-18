@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { UsuarioMongodb } from '../repository/UsuarioMongodb.js';
 import EventoController from '../controller/EventoController.js';
 import TipoEventoController from '../controller/TipoEventoController.js';
+import { Email } from '../shared/Email.js';
 class UsuarioController {
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -21,6 +22,8 @@ class UsuarioController {
         return __awaiter(this, void 0, void 0, function* () {
             const usuarioMongodb = new UsuarioMongodb();
             res.status(200).send(yield usuarioMongodb.add(req.body));
+            const email = new Email();
+            email.enviar(req.body.mail, "Bienvenido!", "Bienvenido a Agendin, su agenda virtual.", "");
         });
     }
     get(req, res) {
@@ -62,47 +65,14 @@ class UsuarioController {
                     }
                 });
                 console.log(listaFormateada);
-                /* (await listaEventos).forEach( async e =>
-                    {
-                        
-                        var i = 0;
-                        var encontre = false;
-                        var s : string = ""
-    
-                        while( (i < (await listaTipoEventos).length) && !encontre){
-                            if( (await listaTipoEventos)[i].id == e.idTipoEvento ){
-                                s = (await listaTipoEventos)[i].descripcion
-                                encontre = true
-                            }else{
-                                i++
-                            }
-    
-    
-                        }
-                          
-                        var ret = fun(e,s)
-                        console.log("ret:" + ret);
-                        
-                        console.log(listaFormateada[0] = ret )
-                        console.log(listaFormateada);
-                        
-                        
-                    })
-                    
-                    console.log("lista: " + listaFormateada);
-                    console.log("listaLength: " + listaFormateada.length); */
                 res.status(200).send(listaFormateada);
+                const email = new Email();
+                email.enviar(rta.mail, "Tus eventos", listaFormateada.toString(), "");
             }
             else {
-                res.status(404).send({ mensaje: "No se encontraron registron con esta clave" });
+                res.status(404).send({ mensaje: "No se encontraron registros con esta clave" });
             }
         });
-    }
-    mapEventos(e, nombre) {
-        console.log("entre");
-        var s;
-        s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
-        return s;
     }
 }
 export default new UsuarioController();
