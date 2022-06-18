@@ -42,10 +42,27 @@ class UsuarioController{
         const rta = await usuarioMongodb.get(parseInt(req.params.id))
 
         if(rta.id != 0){
-            const listaTipoEventos = TipoEventoController.getAllTipoEventos(req, res);
-            const listaEventos = EventoController.getEventosById(rta.id);
+            const listaTipoEventos = await TipoEventoController.getAllTipoEventos(req, res).then();
+            const listaEventos = await EventoController.getEventosById(rta.id).then();
             let listaFormateada = new Array<string>();
-            (await listaEventos).forEach( async e =>
+
+            
+            listaEventos.forEach(e => {
+                if(e.idUsuario == rta.id){
+                    let idTipoEven = e.idTipoEvento
+                    let nombre = listaTipoEventos[idTipoEven-1].descripcion
+                    listaFormateada.push(
+                        '{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}'
+                        )
+                }
+            });
+
+            console.log(listaFormateada);
+            
+
+
+
+            /* (await listaEventos).forEach( async e =>
                 {
                     
                     var i = 0;
@@ -73,25 +90,17 @@ class UsuarioController{
                 })
                 
                 console.log("lista: " + listaFormateada);
-                console.log("listaLength: " + listaFormateada.length);
-            res.status(200).send(listaFormateada[0])
+                console.log("listaLength: " + listaFormateada.length); */
+
+
+            res.status(200).send(listaFormateada)
         }else{
-            res.status(404).send( {mensaje : "No se encontraron registron con esta clave"} )
+            res.status(404).send( {mensaje : "No se encontraron registros con esta clave"} )
         }
 
 
-        var fun = function mapEventos(e : Evento, nombre : string){
-            console.log("entre");
-            var s : string
-            s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}')
-            return s  
-        }
-    }
-    
-
-  
-
-    
+        
+    }     
 
 }
 

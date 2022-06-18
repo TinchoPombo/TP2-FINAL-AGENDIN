@@ -51,41 +51,58 @@ class UsuarioController {
             const usuarioMongodb = new UsuarioMongodb();
             const rta = yield usuarioMongodb.get(parseInt(req.params.id));
             if (rta.id != 0) {
-                const listaTipoEventos = TipoEventoController.getAllTipoEventos(req, res);
-                const listaEventos = EventoController.getEventosById(rta.id);
+                const listaTipoEventos = yield TipoEventoController.getAllTipoEventos(req, res).then();
+                const listaEventos = yield EventoController.getEventosById(rta.id).then();
                 let listaFormateada = new Array();
-                (yield listaEventos).forEach((e) => __awaiter(this, void 0, void 0, function* () {
-                    var i = 0;
-                    var encontre = false;
-                    var s = "";
-                    while ((i < (yield listaTipoEventos).length) && !encontre) {
-                        if ((yield listaTipoEventos)[i].id == e.idTipoEvento) {
-                            s = (yield listaTipoEventos)[i].descripcion;
-                            encontre = true;
-                        }
-                        else {
-                            i++;
-                        }
+                listaEventos.forEach(e => {
+                    if (e.idUsuario == rta.id) {
+                        let idTipoEven = e.idTipoEvento;
+                        let nombre = listaTipoEventos[idTipoEven - 1].descripcion;
+                        listaFormateada.push('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
                     }
-                    var ret = fun(e, s);
-                    console.log("ret:" + ret);
-                    console.log(listaFormateada[0] = ret);
-                    console.log(listaFormateada);
-                }));
-                console.log("lista: " + listaFormateada);
-                console.log("listaLength: " + listaFormateada.length);
-                res.status(200).send(listaFormateada[0]);
+                });
+                console.log(listaFormateada);
+                /* (await listaEventos).forEach( async e =>
+                    {
+                        
+                        var i = 0;
+                        var encontre = false;
+                        var s : string = ""
+    
+                        while( (i < (await listaTipoEventos).length) && !encontre){
+                            if( (await listaTipoEventos)[i].id == e.idTipoEvento ){
+                                s = (await listaTipoEventos)[i].descripcion
+                                encontre = true
+                            }else{
+                                i++
+                            }
+    
+    
+                        }
+                          
+                        var ret = fun(e,s)
+                        console.log("ret:" + ret);
+                        
+                        console.log(listaFormateada[0] = ret )
+                        console.log(listaFormateada);
+                        
+                        
+                    })
+                    
+                    console.log("lista: " + listaFormateada);
+                    console.log("listaLength: " + listaFormateada.length); */
+                res.status(200).send(listaFormateada);
             }
             else {
                 res.status(404).send({ mensaje: "No se encontraron registron con esta clave" });
             }
-            var fun = function mapEventos(e, nombre) {
-                console.log("entre");
-                var s;
-                s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
-                return s;
-            };
         });
+    }
+    mapEventos(e, nombre) {
+        console.log("entre");
+        var s;
+        s = ('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
+        return s;
     }
 }
 export default new UsuarioController();
