@@ -8,7 +8,7 @@ class Usuario{
     constructor(id : number, nombre : string, mail : string, telefono : string){
 
         this.id = id;
-        this. nombre = nombre;
+        this.nombre = nombre;
         this.mail = mail;
         this.telefono = telefono;
 

@@ -4,6 +4,7 @@ import EventoController from '../controller/EventoController.js'
 import TipoEventoController from '../controller/TipoEventoController.js'
 import Evento from '../modelo/Evento.js'
 import { json } from 'body-parser'
+import {Email} from '../shared/Email.js'
 
 
 class UsuarioController{
@@ -16,6 +17,8 @@ class UsuarioController{
     async add(req: express.Request, res: express.Response){
         const usuarioMongodb : UsuarioMongodb = new UsuarioMongodb()
         res.status(200).send(await usuarioMongodb.add(req.body))
+        const email : Email = new Email();
+        email.enviar(req.body.mail, "Bienvenido!", "Bienvenido a Agendin, su agenda virtual.", "");
     }
 
     async get(req: express.Request, res: express.Response){

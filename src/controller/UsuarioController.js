@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { UsuarioMongodb } from '../repository/UsuarioMongodb.js';
 import EventoController from '../controller/EventoController.js';
 import TipoEventoController from '../controller/TipoEventoController.js';
+import { Email } from '../shared/Email.js';
 class UsuarioController {
     getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -21,6 +22,8 @@ class UsuarioController {
         return __awaiter(this, void 0, void 0, function* () {
             const usuarioMongodb = new UsuarioMongodb();
             res.status(200).send(yield usuarioMongodb.add(req.body));
+            const email = new Email();
+            email.enviar(req.body.mail, "Bienvenido!", "Bienvenido a Agendin, su agenda virtual.", "");
         });
     }
     get(req, res) {

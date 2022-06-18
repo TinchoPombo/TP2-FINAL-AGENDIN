@@ -2,6 +2,7 @@ import Usuario from '../modelo/Usuario.js'
 import Dao from './Dao.js'
 import { ConectarMongodb } from './ConectarMongodb.js'
 
+
 class UsuarioMongodb implements Dao<Usuario,number>{
     
 
