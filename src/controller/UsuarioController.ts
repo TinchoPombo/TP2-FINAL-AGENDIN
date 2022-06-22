@@ -63,16 +63,12 @@ class UsuarioController{
 
             console.log(listaFormateada);
 
-
             res.status(200).send(listaFormateada)
             const email : Email = new Email();
             email.enviar(rta.mail, "Tus eventos", listaFormateada.toString() , ""); 
         }else{
             res.status(404).send( {mensaje : "No se encontraron registros con esta clave"} )
         }
-
-
-        
     }     
 
 }

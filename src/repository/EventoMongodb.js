@@ -17,7 +17,17 @@ class EventoMongodb {
         return __awaiter(this, void 0, void 0, function* () {
             const db = yield this.conectarMongodb.conectar();
             const collection = db.collection('eventos');
-            yield collection.insertOne(Element);
+            /* let idX = await collection.estimatedDocumentCount() + 1 */
+            let objId = yield collection.find().sort({ id: -1 }).limit(1).toArray();
+            let idX = objId[0].id + 1;
+            let evento = {
+                id: idX,
+                fecha: Element.fecha,
+                descripcion: Element.descripcion,
+                idUsuario: Element.idUsuario,
+                idTipoEvento: Element.idTipoEvento
+            };
+            yield collection.insertOne(evento);
             yield this.conectarMongodb.desconectar();
             return Promise.resolve(Element);
         });

@@ -10,7 +10,18 @@ class EventoMongodb implements Dao<Evento,number>{
     async add (Element: Evento) : Promise<Evento> {
         const db = await this.conectarMongodb.conectar();
         const collection = db.collection('eventos');
-        await collection.insertOne(Element);
+        /* let idX = await collection.estimatedDocumentCount() + 1 */
+        let objId = await collection.find().sort({ id: -1 }).limit(1).toArray()
+        let idX = objId[0].id + 1
+        
+        let evento = {
+            id : idX,
+            fecha : Element.fecha,
+            descripcion : Element.descripcion,
+            idUsuario : Element.idUsuario,
+            idTipoEvento : Element.idTipoEvento
+        }
+        await collection.insertOne(evento);
         await this.conectarMongodb.desconectar();
         return Promise.resolve(Element);
     }

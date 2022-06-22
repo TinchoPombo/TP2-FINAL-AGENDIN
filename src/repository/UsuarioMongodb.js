@@ -17,7 +17,14 @@ class UsuarioMongodb {
         return __awaiter(this, void 0, void 0, function* () {
             const db = yield this.conectarMongodb.conectar();
             const collection = db.collection('usuarios');
-            yield collection.insertOne(Element);
+            let idX = (yield collection.estimatedDocumentCount()) + 1;
+            let usuario = {
+                id: idX,
+                nombre: Element.nombre,
+                mail: Element.mail,
+                telefono: Element.telefono
+            };
+            yield collection.insertOne(usuario);
             yield this.conectarMongodb.desconectar();
             return Promise.resolve(Element);
         });

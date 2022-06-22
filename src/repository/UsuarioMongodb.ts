@@ -10,7 +10,14 @@ class UsuarioMongodb implements Dao<Usuario,number>{
     async add (Element: Usuario) : Promise<Usuario> {
         const db = await this.conectarMongodb.conectar();
         const collection = db.collection('usuarios');
-        await collection.insertOne(Element);
+        let idX = await collection.estimatedDocumentCount() + 1
+        let usuario = {
+           id : idX,
+           nombre : Element.nombre,
+           mail : Element.mail,
+           telefono : Element.telefono
+        }
+        await collection.insertOne(usuario);
         await this.conectarMongodb.desconectar();
         return Promise.resolve(Element);
     }
