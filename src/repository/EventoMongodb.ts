@@ -13,7 +13,7 @@ class EventoMongodb implements Dao<Evento,number>{
         /* let idX = await collection.estimatedDocumentCount() + 1 */
         let objId = await collection.find().sort({ id: -1 }).limit(1).toArray()
         let idX 
-        objId.length == 0 ? idX = 1 : objId[0].id + 1
+        objId.length == 0 ? idX = 1 : idX = objId[0].id + 1
        
         
         let evento = {

@@ -17,7 +17,14 @@ class TipoEventoMongodb {
         return __awaiter(this, void 0, void 0, function* () {
             const db = yield this.conectarMongodb.conectar();
             const collection = db.collection('tipoEventos');
-            yield collection.insertOne(Element);
+            let objId = yield collection.find().sort({ id: -1 }).limit(1).toArray();
+            let idX;
+            objId.length == 0 ? idX = 1 : idX = objId[0].id + 1;
+            let tipoEvento = {
+                id: idX,
+                descripcion: Element.descripcion
+            };
+            yield collection.insertOne(tipoEvento);
             yield this.conectarMongodb.desconectar();
             return Promise.resolve(Element);
         });
