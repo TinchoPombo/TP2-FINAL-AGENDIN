@@ -61,13 +61,19 @@ class UsuarioController {
                     if (e.idUsuario == rta.id) {
                         let idTipoEven = e.idTipoEvento;
                         let nombre = listaTipoEventos[idTipoEven - 1].descripcion;
-                        listaFormateada.push('{"Fecha": ' + e.fecha + ', "descripcion": ' + e.descripcion + ', "tipo": ' + nombre + '}');
+                        /* let data = {
+                             Fecha : e.fecha,
+                             Descripcion : e.descripcion,
+                             Tipo : nombre
+                         } */
+                        /* var jData = JSON.parse(data.toString()) */
+                        listaFormateada.push(JSON.parse('{"Fecha": "' + e.fecha.toString() + '", "descripcion": "' + e.descripcion + '", "tipo": "' + nombre + '"}'));
                     }
                 });
                 console.log(listaFormateada);
                 res.status(200).send(listaFormateada);
                 const email = new Email();
-                email.enviar(rta.mail, "Tus eventos", listaFormateada.toString(), "");
+                email.enviar(rta.mail, "Tus eventos", JSON.stringify(listaFormateada), "");
             }
             else {
                 res.status(404).send({ mensaje: "No se encontraron registros con esta clave" });
