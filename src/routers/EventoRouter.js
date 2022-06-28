@@ -11,7 +11,8 @@ class EventoRouter {
             .post(EventoController.add);
         this.app.route(this.nombre + "/:id")
             .get(EventoController.get)
-            .delete(EventoController.delete);
+            .delete(EventoController.delete)
+            .put(EventoController.edit);
         return this.app;
     }
 }

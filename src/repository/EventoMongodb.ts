@@ -23,6 +23,7 @@ class EventoMongodb implements Dao<Evento,number>{
             idUsuario : Element.idUsuario,
             idTipoEvento : Element.idTipoEvento
         }
+        
         await collection.insertOne(evento);
         await this.conectarMongodb.desconectar();
         return Promise.resolve(Element);
@@ -86,6 +87,33 @@ class EventoMongodb implements Dao<Evento,number>{
         return Promise.resolve(eventos);
 
     }     
+
+    async edit(element : Evento, idEditar : number) : Promise<Evento> {
+        const db = await this.conectarMongodb.conectar();
+        console.log(element);
+        console.log(idEditar); 
+        
+        const collection = db.collection('eventos');
+        console.log(
+        
+            await collection.replaceOne(
+                { "id" : idEditar },
+                {
+                    
+                    id : idEditar,
+                    fecha : element.fecha,
+                    descripcion : element.descripcion,
+                    idUsuario : element.idUsuario,
+                    idTipoEvento : element.idTipoEvento
+                    
+                }
+            )
+
+        );
+
+        await this.conectarMongodb.desconectar()
+        return Promise.resolve(element)
+    }
 
 }
 

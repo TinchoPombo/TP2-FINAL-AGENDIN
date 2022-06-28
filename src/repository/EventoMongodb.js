@@ -93,5 +93,22 @@ class EventoMongodb {
             return Promise.resolve(eventos);
         });
     }
+    edit(element, idEditar) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield this.conectarMongodb.conectar();
+            console.log(element);
+            console.log(idEditar);
+            const collection = db.collection('eventos');
+            console.log(yield collection.replaceOne({ "id": idEditar }, {
+                id: idEditar,
+                fecha: element.fecha,
+                descripcion: element.descripcion,
+                idUsuario: element.idUsuario,
+                idTipoEvento: element.idTipoEvento
+            }));
+            yield this.conectarMongodb.desconectar();
+            return Promise.resolve(element);
+        });
+    }
 }
 export { EventoMongodb };

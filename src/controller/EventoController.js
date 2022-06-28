@@ -51,5 +51,11 @@ class EventoController {
         const rta = eventoMongodb.getXIdUsuario(id);
         return rta;
     }
+    edit(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const eventoMongodb = new EventoMongodb();
+            res.status(200).send(yield eventoMongodb.edit(req.body, parseInt(req.params.id)));
+        });
+    }
 }
 export default new EventoController();
